@@ -3,7 +3,6 @@ package com.kartoffelkopf.crm.controller;
 import com.kartoffelkopf.crm.model.Customer;
 import com.kartoffelkopf.crm.service.CustomerService;
 import javafx.application.Platform;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -12,7 +11,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EditCustomerController implements Initializable {
+public class EditCustomerController implements EditWindowController {
 
     public TextField nameTextField;
     public Button saveButton;
@@ -22,8 +21,8 @@ public class EditCustomerController implements Initializable {
 
     private CustomerService customerService = new CustomerService();
 
-    public void setCustomer(Customer customer) {
-        this.selectedCustomer = customer;
+    public void setObject(Object customer) {
+        this.selectedCustomer = (Customer) customer;
     }
 
     @Override
