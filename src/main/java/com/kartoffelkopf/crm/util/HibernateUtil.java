@@ -1,10 +1,8 @@
-package com.kartoffelkopf.crm.config;
+package com.kartoffelkopf.crm.util;
 
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import java.io.File;
 
 public class HibernateUtil {
     private static final SessionFactory sessionFactory = buildSessionFactory();

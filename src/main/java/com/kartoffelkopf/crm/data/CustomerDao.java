@@ -1,12 +1,11 @@
 package com.kartoffelkopf.crm.data;
 
-import com.kartoffelkopf.crm.config.HibernateUtil;
+import com.kartoffelkopf.crm.util.HibernateUtil;
 import com.kartoffelkopf.crm.model.Customer;
 import org.hibernate.Session;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
