@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +23,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable{
+
+    final static Logger log = LogManager.getLogger(HomeController.class);
 
     public Button addButton;
     public Button deleteButton;
@@ -37,6 +41,7 @@ public class HomeController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         customerListView.setItems(customerService.getListView());
+        log.info("Customer list loaded");
     }
 
     public void handle_addButton_onMouseReleased(MouseEvent mouseEvent) {
@@ -54,7 +59,9 @@ public class HomeController implements Initializable{
         stage.setTitle("Add New Customer");
         stage.setScene(scene);
         stage.showAndWait();
+        log.info("New customer scene shown");
         customerListView.setItems(customerService.getListView());
+        log.info("Customer list refreshed");
     }
 
     public void handle_deleteButton_onMouseReleased(MouseEvent mouseEvent) {
@@ -68,12 +75,15 @@ public class HomeController implements Initializable{
             alert.setContentText("Are you sure?");
 
             Optional<ButtonType> result = alert.showAndWait();
+            log.info("Confirm deletion alert shown");
             if (result.get() == ButtonType.OK){
                 customerService.delete(customer);
+                log.info("Customer deleted", customer);
             } else {
 
             }
             customerListView.setItems(customerService.getListView());
+            log.info("Customer list refreshed");
         }
     }
 
@@ -82,6 +92,7 @@ public class HomeController implements Initializable{
         Customer customer = customerService.findByName(customerListView.getSelectionModel().getSelectedItem().toString());
 
         detailsTextArea.setText(customerService.getDetailsView(customer));
+        log.info("Customer detail view refreshed", customer);
     }
 
     public void handle_editButton_onMouseReleased(MouseEvent mouseEvent) throws IOException {
@@ -95,14 +106,17 @@ public class HomeController implements Initializable{
 
         EditCustomerController editCustomerController = fxmlLoader.<EditCustomerController>getController();
         editCustomerController.setCustomer(customer);
+        log.info("selectedCustomer sent to controller");
 
         Scene scene = new Scene(subRoot, 600, 100);
 
         stage.setTitle("Edit Customer");
         stage.setScene(scene);
         stage.showAndWait();
+        log.info("Edit customer scene shown");
         customerListView.setItems(customerService.getListView());
+        log.info("Customer list refreshed");
         detailsTextArea.setText(customerService.getDetailsView(customer));
-
+        log.info("Customer details refreshed ", customer);
     }
 }
